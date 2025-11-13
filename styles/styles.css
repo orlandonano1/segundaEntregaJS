@@ -1,0 +1,60 @@
+
+*{
+    padding: 0%;
+    margin: 0%;
+
+}
+
+/*header*/
+header{
+    background-color:mediumspringgreen;
+    
+    font-size: x;
+    position: sticky;
+    width: 100%;
+    top: 0;
+    left: 0;
+
+}
+
+.nav-bar{
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+}
+
+
+
+.imagen{
+    margin:0%;
+    border: 0%;
+    padding: 0%;
+    width: 30%;
+    object-fit: cover;
+}
+
+.boton-eliminar{
+    background-color: #88c0d0;
+    margin-right: 7%;
+    width: 25%;
+
+
+}
+
+.elemento-carrito{
+    margin-bottom: 5%;
+    background-color: #8fbcbb;
+    display: flex;
+    flex-direction: column;
+    width: 50%;
+
+}
+.boton-cantidad{
+    background-color: aqua;
+
+}
+
+#total{
+    justify-self: center;
+    
+}

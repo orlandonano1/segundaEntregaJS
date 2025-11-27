@@ -15,6 +15,7 @@ let total = document.querySelector('#total')
 
 
 let listaCarrito = document.querySelector('#lista-carrito')
+
 carritoStorage.forEach(element => {
     let elementoCarrito = document.createElement("li")
     elementoCarrito.innerHTML = `<h1 class="titulo">${element.nombre}</h1>
@@ -37,11 +38,27 @@ carritoStorage.forEach(element => {
     botonIncrementar.className="boton-cantidad"
 
     botonEliminar.onclick = () =>{
-        elementoCarrito.remove ()
-        carritoStorage = carritoStorage.filter((item) => item.id !== element.id )
-        localStorage.setItem("carrito",JSON.stringify(carritoStorage))
-        total.innerText =  " Total:$  "+totalCarrito(carritoStorage)
+       
+        Swal.fire({
+        title: "Seguro que desea eliminar el producto?",
+        showDenyButton: true,
+        confirmButtonText: "No Eliminar",
+        denyButtonText: `Eliminar`
+        }).then((result) => {
+        if (result.isConfirmed) {
+        Swal.fire("No se Elimino", "", "success");
+        } else if (result.isDenied) {
+            elementoCarrito.remove ()
+            carritoStorage = carritoStorage.filter((item) => item.id !== element.id )
+            localStorage.setItem("carrito",JSON.stringify(carritoStorage))
+            total.innerText =  " Total:$  "+totalCarrito(carritoStorage)
+            Swal.fire("Eliminado", "", "info");
+            }
+        });
+
+
     }
+
     botonDecrementar.onclick = () => {
         const auxCantidad = element.cantidad -1
        if(auxCantidad > 0){
@@ -68,4 +85,52 @@ carritoStorage.forEach(element => {
 
 
 });
+
+let elementosCarrito = document.querySelectorAll(".elemento-carrito")
+let botonVaciar  = document.querySelector("#limpiarCarrito")
+botonVaciar.onclick =()=>{
+     Swal.fire({
+        title: "Seguro que desea vaciar el carrito?",
+        showDenyButton: true,
+        confirmButtonText: "No Vaciar",
+        denyButtonText: `Eliminar`
+        }).then((result) => {
+        if (result.isConfirmed) {
+        Swal.fire("No se Vacio", "", "success");
+        } else if (result.isDenied) {
+            elementosCarrito.forEach((element)=>{
+                element.remove()
+            })
+            carritoStorage = []
+            localStorage.setItem("carrito",JSON.stringify(carritoStorage))
+            total.innerText =  " Total:$  "+ totalCarrito(carritoStorage)
+            Swal.fire("Carrito Vaciado", "", "info");
+        }
+    });
+   
+}
+
+let finalizarCompra = document.querySelector("#finalizarCompra")
+
+finalizarCompra.onclick =()=>{
+    Swal.fire({
+    position: "top-end",
+    icon: "success",
+    title: "Gracias por tu compra",
+    showConfirmButton: false,
+    timer: 1500
+    });
+    elementosCarrito.forEach((e)=>{
+        e.remove()
+
+    })
+    carritoStorage = []
+    localStorage.setItem("carrito",JSON.stringify(carritoStorage))
+    total.innerText =  " Total:$  "+ totalCarrito(carritoStorage)
+
+
+}
+
+
+
 

@@ -58,3 +58,19 @@ header{
     justify-self: center;
     
 }
+
+.botones{
+    display: flex;
+    justify-content: space-around;
+}
+
+#limpiarCarrito{
+    border:#06b3e3 solid;
+    
+}
+
+#finalizarCompra{
+
+    border: #06b3e3 solid;
+    
+}

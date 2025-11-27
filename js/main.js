@@ -1,60 +1,10 @@
 
 
-const productoantibioticos = [
-  {
-    id: 1,
-    nombre: "Amoxicilina",
-    precio: 120,
-    imagen: "../imagenes/amoxicilina.png" 
-  },
-  {
-    id: 2,
-    nombre: "Clindamicina",
-    precio: 140,
-    imagen: "../imagenes/clindamicina.png"
-  },
-  {
-    id: 3,
-    nombre: "Ceftriaxona",
-    precio: 90,
-    imagen: "../imagenes/ceftriaxona.png" 
-  },
-  {
-    id: 4,
-    nombre: "Gentamicina",
-    precio: 70,
-    imagen: "../imagenes/gentamicina.jpg"
-  },
-  {
-    id: 5,
-    nombre: "Amikasina",
-    precio: 50,
-    imagen: "../imagenes/amikasina.jpg" 
-  },
-  {
-    id: 6,
-    nombre: "Cefixima",
-    precio: 260,
-    imagen: "../imagenes/cefixima.png"
-  },
-  {
-    id: 7,
-    nombre: "Cefadroxilo",
-    precio: 175,
-    imagen: "../imagenes/cefadroxilo.jpg" 
-  },
-  {
-    id: 8,
-    nombre: "Azitromicina",
-    precio: 70,
-    imagen: "../imagenes/azitromicina.jpg"
-  }
-];
-
-
-
-
-let carritoStorage = localStorage.getItem("carrito")
+//const productoantibioticos = []//
+fetch('./data/db.js')
+.then(response =>response.json())
+.then(productoantibioticos => {
+  let carritoStorage = localStorage.getItem("carrito")
 let carrito =  JSON.parse(carritoStorage) || []
 
 const calcularTamanio = (lista)=> {
@@ -63,6 +13,7 @@ const calcularTamanio = (lista)=> {
       return acumulador+item.cantidad
     },0)
 }
+
 
 const agregarCarrito = (idSearch) =>{
 
@@ -104,9 +55,11 @@ productoantibioticos.forEach((element)=>{
     agregarCarrito (element.id)
     contadorCarrito.innerText = calcularTamanio(carrito)
     localStorage.setItem("carrito",JSON.stringify(carrito))
+    agregado("Agregado")
   }
-  boton.innerText = 'agregar'
+  boton.innerText = 'Agregar'
   boton.className="boton-cantidad"
+
 
 
   let imagen = document.createElement('li')
@@ -127,6 +80,28 @@ productoantibioticos.forEach((element)=>{
 
 contadorCarrito.innerText = calcularTamanio(carrito)
 navBar.appendChild (contadorCarrito)
+
+
+
+
+
+
+
+let agregado =(mensaje)=>{
+
+  Toastify({
+  text: mensaje,
+  className: "info",
+  gravity: "bottom", 
+  position: "center", 
+  style: {
+    background: "linear-gradient(to right, #22bfacff, #43473dff)",
+  }
+}).showToast();
+
+
+}
+})
 
 
 
